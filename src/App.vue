@@ -1,27 +1,48 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Edit @input="handleInput" @run="handleRun" @clear="handleClear"></Edit>
+    <Show :code="code" ref="show"></Show>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import Edit from '@/components/Edit.vue';
+import Show from '@/components/Show.vue';
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
-}
+    Edit,
+    Show,
+  },
+  data() {
+    return {
+      code: '',
+    };
+  },
+  methods: {
+    handleInput(value) {
+      this.code = value;
+    },
+    handleRun() {
+      this.$refs.show.run();
+    },
+    handleClear() {
+      this.code = '';
+    },
+  },
+};
 </script>
 
 <style lang="stylus">
+*
+  margin 0
+  padding 0
+html,body,#app
+  width 100%
+  height 100%
+
 #app
-  font-family Avenir, Helvetica, Arial, sans-serif
-  -webkit-font-smoothing antialiased
-  -moz-osx-font-smoothing grayscale
-  text-align center
-  color #2c3e50
-  margin-top 60px
+  display flex
+  &>div
+    flex 1
 </style>
